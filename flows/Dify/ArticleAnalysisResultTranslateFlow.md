@@ -1,4 +1,4 @@
-# BestBlogs 文章分析结果翻译流程
+# ArticleAggregator 文章分析结果翻译流程
 
 ## 整体流程图
 

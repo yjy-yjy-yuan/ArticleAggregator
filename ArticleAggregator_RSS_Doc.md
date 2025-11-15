@@ -1,6 +1,6 @@
-# BestBlogs.dev RSS 订阅指南
+# ArticleAggregator.dev RSS 订阅指南
 
-BestBlogs.dev 提供了灵活的 RSS 订阅功能，让您可以根据自己的需求订阅感兴趣的技术文章。
+ArticleAggregator.dev 提供了灵活的 RSS 订阅功能，让您可以根据自己的需求订阅感兴趣的技术文章。
 
 ## RSS 订阅地址
 

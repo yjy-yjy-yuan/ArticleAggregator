@@ -5,7 +5,7 @@ app:
   icon: sparkle
   icon_background: '#D3F8DF'
   mode: workflow
-  name: "BestBlogs \u6587\u7AE0\u5206\u6790\u6D41\u7A0B"
+  name: "ArticleAggregator \u6587\u7AE0\u5206\u6790\u6D41\u7A0B"
 workflow:
   features:
     file_upload:
@@ -203,7 +203,7 @@ workflow:
         title: "\u5F00\u59CB"
         type: start
         variables:
-        - label: "BestBlogs \u6587\u7AE0 Id"
+        - label: "ArticleAggregator \u6587\u7AE0 Id"
           max_length: 20
           options: []
           required: true

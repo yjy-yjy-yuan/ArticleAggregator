@@ -1,12 +1,12 @@
-# Intelligent Article Analysis at BestBlogs.dev: A Case Study Using Dify Workflow
+# Intelligent Article Analysis at ArticleAggregator.dev: A Case Study Using Dify Workflow
 
 ## Abstract
 
-This case study explores how BestBlogs.dev leverages Dify Workflow to implement an automated article analysis process. We detail the journey from initial article evaluation to in-depth analysis and multilingual translation. By adopting the Dify platform, we've significantly enhanced our content processing efficiency and quality, delivering a superior reading experience. We share our implementation insights and Dify Workflow user experience, providing valuable reference for developers facing similar challenges.
+This case study explores how ArticleAggregator.dev leverages Dify Workflow to implement an automated article analysis process. We detail the journey from initial article evaluation to in-depth analysis and multilingual translation. By adopting the Dify platform, we've significantly enhanced our content processing efficiency and quality, delivering a superior reading experience. We share our implementation insights and Dify Workflow user experience, providing valuable reference for developers facing similar challenges.
 
 ## Background
 
-[BestBlogs.dev](https://bestblogs.dev) is a curated content platform targeting tech professionals, entrepreneurs, and product managers. We aggregate high-quality content across software development, artificial intelligence, product management, marketing, design, business, technology, and personal growth.
+[ArticleAggregator.dev](https://bestblogs.dev) is a curated content platform targeting tech professionals, entrepreneurs, and product managers. We aggregate high-quality content across software development, artificial intelligence, product management, marketing, design, business, technology, and personal growth.
 
 Our core methodology involves collecting premium blog articles via RSS feeds and web crawlers, then employing large language models (LLMs) for content evaluation and filtering. This approach significantly enhances content quality and processing efficiency. Key features include:
 
@@ -16,7 +16,7 @@ Our core methodology involves collecting premium blog articles via RSS feeds and
 
 - **Cross-Language Accessibility** (In Development): Leveraging cutting-edge translation technology, we aim to break language barriers, allowing global tech enthusiasts to access knowledge without linguistic constraints.
 
-![BestBlogs Article Page](./flowImages/article_detail_page_en.png)
+![ArticleAggregator Article Page](./flowImages/article_detail_page_en.png)
 
 ### Dify Workflow: An Overview
 
@@ -27,7 +27,7 @@ Dify Workflow is a robust LLMOps platform designed for constructing complex AI-d
 - A rich set of pre-configured node types (e.g., conditional logic, loops, HTTP calls)
 - Comprehensive debugging, logging, and API integration capabilities
 
-These features make Dify particularly well-suited for building sophisticated content processing systems like BestBlogs.dev.
+These features make Dify particularly well-suited for building sophisticated content processing systems like ArticleAggregator.dev.
 
 ## The Need for Workflow
 
@@ -90,7 +90,7 @@ We redesigned our core processes before implementing Dify Workflow, focusing on 
 
 ![Website Main Process](./flowImages/bestblogs_main_flow_en.png)
 
-> Note: Detailed DSL files and node-specific prompts are available in the [BestBlogs project repository](https://github.com/ginobefun/bestblogs).
+> Note: Detailed DSL files and node-specific prompts are available in the [ArticleAggregator project repository](https://github.com/ginobefun/bestblogs).
 
 ### Initial Evaluation Workflow
 
@@ -144,7 +144,7 @@ The implementation of Dify Workflow has yielded significant improvements:
 
 ## Conclusion and Future Directions
 
-Our integration of Dify Workflow has substantially improved BestBlogs.dev's article processing capabilities. The platform now offers more efficient and higher-quality content analysis, enhancing the overall user experience.
+Our integration of Dify Workflow has substantially improved ArticleAggregator.dev's article processing capabilities. The platform now offers more efficient and higher-quality content analysis, enhancing the overall user experience.
 
 Key benefits of Dify Workflow include:
 
@@ -166,4 +166,4 @@ Looking ahead, we're exploring several enhancements:
 
 4. **Full-Text Translation**: Expanding our translation capabilities to enable immersive reading experiences across multiple languages.
 
-These future developments aim to further elevate BestBlogs.dev's user experience, offering more intelligent and personalized content delivery. We're excited to continue exploring Dify's capabilities and contributing our insights to the broader tech community.
+These future developments aim to further elevate ArticleAggregator.dev's user experience, offering more intelligent and personalized content delivery. We're excited to continue exploring Dify's capabilities and contributing our insights to the broader tech community.

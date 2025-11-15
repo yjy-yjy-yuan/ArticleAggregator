@@ -3,7 +3,7 @@ app:
   icon: helicopter
   icon_background: '#FFEAD5'
   mode: workflow
-  name: BestBlogs 文章初评流程
+  name: ArticleAggregator 文章初评流程
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
@@ -134,7 +134,7 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: BestBlogs 文章 Id
+        - label: ArticleAggregator 文章 Id
           max_length: 20
           options: []
           required: true

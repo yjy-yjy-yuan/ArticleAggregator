@@ -3,7 +3,7 @@ app:
   icon: 📻
   icon_background: '#FFE4E8'
   mode: workflow
-  name: BestBlogs 播客分析结果翻译
+  name: ArticleAggregator 播客分析结果翻译
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
@@ -155,7 +155,7 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: BestBlogs 播客 Id
+        - label: ArticleAggregator 播客 Id
           max_length: 20
           options: []
           required: true

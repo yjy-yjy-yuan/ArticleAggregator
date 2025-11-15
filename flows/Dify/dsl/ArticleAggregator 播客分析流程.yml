@@ -3,7 +3,7 @@ app:
   icon: 📻
   icon_background: '#D3F8DF'
   mode: workflow
-  name: BestBlogs 播客分析流程
+  name: ArticleAggregator 播客分析流程
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
@@ -135,7 +135,7 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: BestBlogs 文章 Id
+        - label: ArticleAggregator 文章 Id
           max_length: 20
           options: []
           required: true

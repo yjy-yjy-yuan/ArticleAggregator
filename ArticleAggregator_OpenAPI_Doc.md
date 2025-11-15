@@ -1,8 +1,8 @@
-# BestBlogs OpenAPI 文档
+# ArticleAggregator OpenAPI 文档
 
 ## 介绍
 
-本文档描述 BestBlogs 服务的开放接口。所有接口都需要通过 API Key 进行鉴权。
+本文档描述 ArticleAggregator 服务的开放接口。所有接口都需要通过 API Key 进行鉴权。
 
 ## 授权方式
 
@@ -259,7 +259,7 @@
 
 ## 资讯期刊管理模块
 
-管理和获取 BestBlogs 精选期刊内容
+管理和获取 ArticleAggregator 精选期刊内容
 
 ### 查询期刊列表
 
@@ -355,8 +355,8 @@
       "dataList": [
         {
           "id": "issue55",
-          "title": "BestBlogs.dev 精选文章 第 55 期",
-          "summary": "大家好，欢迎阅读 BestBlogs.dev 第 55 期 AI 精选。\n\n本周，xAI 携新一代大模型 **Grok 4** 高调入场，再次点燃了前沿模型的竞争。与此同时，AI 的实用化趋势也在加速，从专攻 3D 生成的行业模型，到各类提升开发者效率的工具与框架，技术正加速融入生产流程。行业也并未停止深思，一份关于 AI 编程工具真实效率的研究报告，引发了对 AI 应用价值与人机协作模式的广泛探讨。",
+          "title": "ArticleAggregator.dev 精选文章 第 55 期",
+          "summary": "大家好，欢迎阅读 ArticleAggregator.dev 第 55 期 AI 精选。\n\n本周，xAI 携新一代大模型 **Grok 4** 高调入场，再次点燃了前沿模型的竞争。与此同时，AI 的实用化趋势也在加速，从专攻 3D 生成的行业模型，到各类提升开发者效率的工具与框架，技术正加速融入生产流程。行业也并未停止深思，一份关于 AI 编程工具真实效率的研究报告，引发了对 AI 应用价值与人机协作模式的广泛探讨。",
           "articleCount": 24,
           "createdTimeStr": "07-11",
           "createdTimestamp": 1752214268908,
@@ -364,8 +364,8 @@
         },
         {
           "id": "issue54",
-          "title": "BestBlogs.dev 精选文章 第 54 期",
-          "summary": "大家好，欢迎阅读 BestBlogs.dev 第 54 期 AI 精选。\n\n本周，国内大厂在多模态模型领域展开了密集的技术发布与开源行动，从图像编辑到音视频同步生成，展现了强大的创新实力。",
+          "title": "ArticleAggregator.dev 精选文章 第 54 期",
+          "summary": "大家好，欢迎阅读 ArticleAggregator.dev 第 54 期 AI 精选。\n\n本周，国内大厂在多模态模型领域展开了密集的技术发布与开源行动，从图像编辑到音视频同步生成，展现了强大的创新实力。",
           "articleCount": 24,
           "createdTimeStr": "06-27",
           "createdTimestamp": 1751024897083,
@@ -511,12 +511,12 @@
     "requestId": "Tdb6b4ee161f74009a0958aef84e47d56",
     "data": {
       "id": "issue55",
-      "title": "BestBlogs.dev 精选文章 第 55 期",
-      "summary": "大家好，欢迎阅读 BestBlogs.dev 第 55 期 AI 精选。\n\n本周，xAI 携新一代大模型 **Grok 4** 高调入场，再次点燃了前沿模型的竞争...",
-      "enTitle": "BestBlogs.dev Highlights Issue #55",
-      "enSummary": "Hello and welcome to Issue #55 of BestBlogs.dev AI Highlights...",
-      "zhTitle": "BestBlogs.dev 精选文章 第 55 期",
-      "zhSummary": "大家好，欢迎阅读 BestBlogs.dev 第 55 期 AI 精选...",
+      "title": "ArticleAggregator.dev 精选文章 第 55 期",
+      "summary": "大家好，欢迎阅读 ArticleAggregator.dev 第 55 期 AI 精选。\n\n本周，xAI 携新一代大模型 **Grok 4** 高调入场，再次点燃了前沿模型的竞争...",
+      "enTitle": "ArticleAggregator.dev Highlights Issue #55",
+      "enSummary": "Hello and welcome to Issue #55 of ArticleAggregator.dev AI Highlights...",
+      "zhTitle": "ArticleAggregator.dev 精选文章 第 55 期",
+      "zhSummary": "大家好，欢迎阅读 ArticleAggregator.dev 第 55 期 AI 精选...",
       "articles": [
         {
           "id": "RAW_50231a",
@@ -550,7 +550,7 @@
 
 ## 资源内容管理模块
 
-管理和获取 BestBlogs 的文章、播客、视频、推特等各类资源内容
+管理和获取 ArticleAggregator 的文章、播客、视频、推特等各类资源内容
 
 ### 查询资源列表
 
@@ -1222,7 +1222,7 @@
 
 ## 推文内容管理模块
 
-管理和获取 BestBlogs 的推文内容，包括 Twitter/X 平台的推文及其分析数据
+管理和获取 ArticleAggregator 的推文内容，包括 Twitter/X 平台的推文及其分析数据
 
 ### 查询推文列表
 
