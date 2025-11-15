@@ -3,15 +3,16 @@ app:
   icon: helicopter
   icon_background: '#FFEAD5'
   mode: workflow
-  name: ArticleAggregator 文章初评流程
+  name: 文章初评流程
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/gemini:0.1.5@012c9e0467a11910db974e0436348e93a376fdc96381946a3db2c56708377381
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.5.12@2a2bf8f78552bd52b1d2e51995daaa7b7c04b2572b29e661b14c1b773ab8d45a
+    version: null
 kind: app
-version: 0.2.0
+version: 0.5.0
 workflow:
   conversation_variables: []
   environment_variables: []
@@ -134,13 +135,13 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: ArticleAggregator 文章 Id
+        - label: BestBlogs 文章 Id
           max_length: 20
           options: []
           required: true
           type: text-input
           variable: input_article_id
-      height: 118
+      height: 136
       id: '1718352852007'
       position:
         x: 30
@@ -152,7 +153,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         context:
           enabled: false
@@ -216,7 +217,7 @@ workflow:
             detail: high
             variable_selector: []
           enabled: false
-      height: 134
+      height: 131
       id: '1718355814693'
       position:
         x: 1246
@@ -228,18 +229,22 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         desc: 输出结果
         outputs:
         - value_selector:
-          - '1718355814693'
-          - text
+          - '1719357159255'
+          - analysisResult
           variable: analysisResult
+        - value_selector:
+          - '1719357159255'
+          - languageName
+          variable: languageName
         selected: false
         title: 返回文章初评结果
         type: end
-      height: 118
+      height: 141
       id: '1718356146046'
       position:
         x: 1550
@@ -251,7 +256,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         authorization:
           config: null
@@ -279,7 +284,7 @@ workflow:
         type: http-request
         url: https://api.bestblogs.dev/api/resource/markdown
         variables: []
-      height: 139
+      height: 136
       id: '1719356422842'
       position:
         x: 334
@@ -291,25 +296,30 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         code: "import json\n\ndef main(json_body):\n    \"\"\"\n    处理 REST 请求返回的\
           \ JSON 字符串。\n    \n    若输入为空字符串或JSON解析失败，则返回 {'success': 'false'}。\n   \
           \ 若 JSON 字符串解析成功且 'success' 为 'true'，则返回包含指定键值的字典。\n    否则返回 {'success':\
           \ 'false'}。\n\n    参数:\n        json_body (str): 包含 JSON 数据的字符串。\n    \n\
           \    返回:\n        dict: 包含 'success' 键和指定的数据键值对的字典。\n    \"\"\"\n    \n\
-          \    result = {'success': 'false'}\n    \n    if not json_body:\n      \
-          \  return result\n\n    try:\n        data = json.loads(json_body)\n   \
-          \     if isinstance(data, dict) and data.get('success') == 'true':\n   \
-          \         result['success'] = 'true'\n            result['markdown'] = data.get('markdown',\
-          \ '')\n            result['sourceName'] = data.get('sourceName', '')\n \
-          \           result['title'] = data.get('title', '')\n            result['languageName']\
-          \ = data.get('languageName', '')\n            result['url'] = data.get('url',\
-          \ '')\n        return result\n    except json.JSONDecodeError:\n       \
-          \ return result\n    except Exception:\n        return result"
+          \    result = {\n        'success': 'false',\n        'markdown': '',\n\
+          \        'sourceName': '',\n        'title': '',\n        'languageName':\
+          \ '',\n        'url': '',\n        'analysisResult': ''\n    }\n    \n \
+          \   if not json_body:\n        return result\n\n    try:\n        data =\
+          \ json.loads(json_body)\n        if isinstance(data, dict) and data.get('success')\
+          \ == 'true':\n            result['success'] = 'true'\n            result['markdown']\
+          \ = data.get('markdown', '')\n            result['sourceName'] = data.get('sourceName',\
+          \ '')\n            result['title'] = data.get('title', '')\n           \
+          \ result['languageName'] = data.get('languageName', '')\n            result['url']\
+          \ = data.get('url', '')\n        return result\n    except json.JSONDecodeError:\n\
+          \        return result\n    except Exception:\n        return result"
         code_language: python3
         desc: 解析请求结果
         outputs:
+          analysisResult:
+            children: null
+            type: string
           languageName:
             children: null
             type: string
@@ -336,7 +346,7 @@ workflow:
           - '1719356422842'
           - body
           variable: json_body
-      height: 82
+      height: 79
       id: '1719357159255'
       position:
         x: 638
@@ -348,7 +358,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         cases:
         - case_id: 'true'
@@ -374,7 +384,7 @@ workflow:
         selected: false
         title: 判断是否获取内容成功
         type: if-else
-      height: 126
+      height: 123
       id: '1720855943817'
       position:
         x: 942
@@ -386,14 +396,23 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         desc: 返回空结果
-        outputs: []
+        outputs:
+        - value_selector:
+          - '1719356422842'
+          - files
+          value_type: array[file]
+          variable: analysisResult
+        - value_selector:
+          - '1719357159255'
+          - languageName
+          variable: languageName
         selected: false
         title: 结束 2
         type: end
-      height: 82
+      height: 141
       id: '1747280525794'
       position:
         x: 1246
@@ -404,8 +423,9 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     viewport:
       x: 0
       y: 0
       zoom: 0.7
+  rag_pipeline_variables: []

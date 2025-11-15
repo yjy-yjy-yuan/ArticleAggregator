@@ -1,0 +1,264 @@
+app:
+  description: AI学生文章初评流程 - 测试版（移除HTTP请求，使用直接输入）
+  icon: 🎓
+  icon_background: '#E3F2FD'
+  mode: workflow
+  name: TEST_AI学生初评流程
+  use_icon_as_answer_icon: false
+
+kind: app
+version: 0.5.0
+
+workflow:
+  conversation_variables: []
+  environment_variables: []
+
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    text_to_speech:
+      enabled: false
+
+  graph:
+    edges:
+    # 开始 → LLM初评
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: llm
+      id: start-to-llm
+      source: start-node
+      sourceHandle: source
+      target: llm-filter
+      targetHandle: target
+      type: custom
+
+    # LLM初评 → 条件判断
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: if-else
+      id: llm-to-if
+      source: llm-filter
+      sourceHandle: source
+      target: if-condition
+      targetHandle: target
+      type: custom
+
+    # 条件判断(通过) → 结束(通过)
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: if-true-to-end
+      source: if-condition
+      sourceHandle: 'true'
+      target: end-pass
+      targetHandle: target
+      type: custom
+
+    # 条件判断(不通过) → 结束(拒绝)
+    - data:
+        isInIteration: false
+        sourceType: if-else
+        targetType: end
+      id: if-false-to-end
+      source: if-condition
+      sourceHandle: 'false'
+      target: end-reject
+      targetHandle: target
+      type: custom
+
+    nodes:
+    # ========== 开始节点 ==========
+    - data:
+        desc: 输入文章信息进行初评
+        title: 开始
+        type: start
+        variables:
+        - label: 文章标题
+          max_length: 500
+          required: true
+          type: text-input
+          variable: article_title
+        - label: 文章内容
+          max_length: 50000
+          required: true
+          type: paragraph
+          variable: article_content
+        - label: 来源名称
+          max_length: 100
+          required: false
+          type: text-input
+          variable: source_name
+        - label: 字数
+          max_length: 10
+          required: false
+          type: number
+          variable: word_count
+      id: start-node
+      position:
+        x: 50
+        y: 300
+      positionAbsolute:
+        x: 50
+        y: 300
+      type: start
+
+    # ========== LLM 初评节点 ==========
+    - data:
+        context:
+          enabled: false
+        desc: 使用大模型进行初步评估
+        model:
+          completion_params:
+            temperature: 0.3
+            top_p: 0.9
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: google
+        prompt_template:
+        - id: system
+          role: system
+          text: |
+            你是一个专为AI/ML学生设计的内容过滤器。
+
+            你的任务：快速判断这篇文章是否值得深入分析。
+
+            ## 评估维度（总分100）
+
+            ### 1. 学术价值（40分）
+            - 是否有助于学生理解机器学习/深度学习概念？
+            - 是否包含算法原理、数学推导或理论分析？
+            - 是否引用学术论文或前沿研究？
+
+            ### 2. 实践价值（30分）
+            - 是否提供代码示例或实验结果？
+            - 是否有具体案例或项目实战？
+            - 是否介绍实用工具或框架？
+
+            ### 3. 相关性（30分）
+            - 是否聚焦AI核心领域（ML/DL/NLP/CV/RL）？
+            - 是否适合学生水平（不太简单，不太晦涩）？
+            - 内容是否足够新颖或有启发性？
+
+            ## 自动拒绝（直接打0分）
+            - 商业/市场营销文章
+            - 产品设计/UX内容
+            - 纯工程实践（DevOps、云计算等非AI内容）
+            - 新闻快讯（除非来自OpenAI、DeepMind等顶级实验室）
+            - 招聘/活动通知
+
+            ## 输出格式（JSON）
+            {
+              "score": 75,
+              "reason": "简短说明评分理由（1-2句话）",
+              "pass": true,
+              "category": "深度学习"
+            }
+
+            **通过阈值：60分**
+            score >= 60 时，pass = true
+            score < 60 时，pass = false
+
+        - id: user
+          role: user
+          text: |
+            请评估以下文章：
+
+            **标题**：{{#start-node.article_title#}}
+
+            **来源**：{{#start-node.source_name#}}
+
+            **字数**：{{#start-node.word_count#}}
+
+            **内容预览**：
+            {{#start-node.article_content#}}
+
+        selected: false
+        title: AI学生初评
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      id: llm-filter
+      position:
+        x: 400
+        y: 300
+      positionAbsolute:
+        x: 400
+        y: 300
+      type: llm
+
+    # ========== 条件判断节点 ==========
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: contains
+            id: condition-1
+            value: '"pass": true'
+            variable_selector:
+            - llm-filter
+            - text
+          id: 'true'
+          logical_operator: and
+        desc: 判断是否通过初评
+        title: 判断结果
+        type: if-else
+      id: if-condition
+      position:
+        x: 750
+        y: 300
+      positionAbsolute:
+        x: 750
+        y: 300
+      type: if-else
+
+    # ========== 结束节点（通过）==========
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - llm-filter
+          - text
+          variable: result
+        selected: false
+        title: 通过初评
+        type: end
+      id: end-pass
+      position:
+        x: 1100
+        y: 200
+      positionAbsolute:
+        x: 1100
+        y: 200
+      type: end
+
+    # ========== 结束节点（拒绝）==========
+    - data:
+        desc: ''
+        outputs:
+        - value_selector:
+          - llm-filter
+          - text
+          variable: result
+        selected: false
+        title: 拒绝文章
+        type: end
+      id: end-reject
+      position:
+        x: 1100
+        y: 400
+      positionAbsolute:
+        x: 1100
+        y: 400
+      type: end

@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## 回答问题原则
+总是使用中文回答，除非用户要求使用英文
+
 ## Project Overview
 
 ArticleAggregator.dev is a content aggregation platform that curates high-quality articles from the fields of software development, artificial intelligence, product management, design, business technology, and personal growth. The platform uses AI-powered analysis to evaluate, summarize, and enhance content from 380+ RSS sources.
