@@ -1,0 +1,269 @@
+{
+  "project_name": "AI学生知识库聚合系统",
+  "description": "专为AI/ML学生定制的技术文章聚合测试配置",
+  "version": "1.0.0-test",
+  "created_date": "2025-01-15",
+
+  "target_audience": {
+    "primary": "AI领域的大学生和研究生",
+    "focus_areas": [
+      "机器学习基础",
+      "深度学习",
+      "自然语言处理",
+      "计算机视觉",
+      "强化学习"
+    ],
+    "excluded_content": [
+      "播客(Podcasts)",
+      "视频(Videos)",
+      "推文(Twitter/X)",
+      "商业科技",
+      "产品设计",
+      "纯工程实践"
+    ]
+  },
+
+  "test_sources": [
+    {
+      "id": 1,
+      "name": "Jay Alammar",
+      "url": "https://jalammar.github.io/feed.xml",
+      "category": "教学与可视化",
+      "difficulty": "本科生",
+      "priority": "highest",
+      "description": "⭐ Transformer、BERT、GPT 可视化教学王者，图解复杂概念",
+      "best_for": "理解 Transformer 架构、注意力机制",
+      "language": "英文",
+      "update_frequency": "低频高质",
+      "enabled": true
+    },
+    {
+      "id": 2,
+      "name": "OpenAI Blog",
+      "url": "https://blog.openai.com/rss/",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "highest",
+      "description": "⭐ GPT、DALL-E、CLIP 官方研究博客，学生必读",
+      "best_for": "大语言模型、RLHF、多模态学习最新进展",
+      "language": "英文",
+      "update_frequency": "中频",
+      "enabled": true
+    },
+    {
+      "id": 3,
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "highest",
+      "description": "⭐ Transformers 库官方教程，实践为主，代码质量高",
+      "best_for": "动手实践 NLP、微调模型、部署应用",
+      "language": "英文",
+      "update_frequency": "高频",
+      "enabled": true
+    },
+    {
+      "id": 4,
+      "name": "Lilian Weng",
+      "url": "https://lilianweng.github.io/lil-log/feed.xml",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "highest",
+      "description": "⭐ OpenAI 研究员，深入浅出的 ML 技术分析",
+      "best_for": "强化学习、Prompt Engineering、RLHF 深度理解",
+      "language": "英文",
+      "update_frequency": "低频高质",
+      "enabled": true
+    },
+    {
+      "id": 5,
+      "name": "DeepMind Blog",
+      "url": "https://deepmind.com/blog/feed/basic/",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "AlphaGo、AlphaFold、强化学习权威",
+      "best_for": "强化学习、蛋白质折叠、游戏 AI",
+      "language": "英文",
+      "update_frequency": "中频",
+      "enabled": true
+    },
+    {
+      "id": 6,
+      "name": "PyTorch Blog",
+      "url": "https://pytorch.org/blog/feed.xml",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "high",
+      "description": "PyTorch 官方教程和最佳实践",
+      "best_for": "PyTorch 使用技巧、分布式训练、性能优化",
+      "language": "英文",
+      "update_frequency": "中频",
+      "enabled": true
+    },
+    {
+      "id": 7,
+      "name": "Distill",
+      "url": "http://distill.pub/rss.xml",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "可视化 ML 论文解读，质量极高（更新较慢）",
+      "best_for": "理解注意力机制、特征可视化、可解释性",
+      "language": "英文",
+      "update_frequency": "极低频极高质",
+      "enabled": true
+    },
+    {
+      "id": 8,
+      "name": "arXiv cs.LG (Machine Learning)",
+      "url": "http://export.arxiv.org/rss/cs.LG",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "arXiv 机器学习论文，量最大",
+      "best_for": "ML 理论、算法创新",
+      "language": "英文",
+      "update_frequency": "极高频",
+      "enabled": false,
+      "note": "测试阶段先禁用，避免文章过多"
+    }
+  ],
+
+  "workflow_config": {
+    "crawling": {
+      "fetch_interval_minutes": 60,
+      "max_articles_per_source": 3,
+      "total_daily_limit": 20,
+      "retry_on_failure": 3,
+      "timeout_seconds": 30
+    },
+
+    "filtering": {
+      "enabled": true,
+      "min_word_count": 500,
+      "max_word_count": 50000,
+      "language_filter": ["en", "zh"],
+      "quality_threshold": 60,
+      "exclude_keywords": [
+        "sponsored",
+        "advertisement",
+        "产品发布",
+        "招聘",
+        "活动通知"
+      ]
+    },
+
+    "analysis": {
+      "model": "gemini-2.0-flash-exp",
+      "backup_model": "gpt-4o-mini",
+      "enable_segmentation": true,
+      "segment_size": 6000,
+      "enable_reflection": true,
+      "enable_optimization": true,
+      "custom_domains": [
+        "机器学习基础",
+        "深度学习",
+        "自然语言处理",
+        "计算机视觉",
+        "强化学习",
+        "AI工具与框架"
+      ],
+      "scoring_weights": {
+        "academic_depth": 0.35,
+        "relevance": 0.30,
+        "practicality": 0.20,
+        "innovation": 0.15
+      }
+    },
+
+    "translation": {
+      "enabled": true,
+      "source_languages": ["en"],
+      "target_language": "zh",
+      "translate_if_score_above": 75,
+      "preserve_technical_terms": true
+    },
+
+    "storage": {
+      "database_type": "sqlite",
+      "database_path": "./data/ai_student_articles.db",
+      "backup_enabled": true,
+      "retention_days": 180
+    }
+  },
+
+  "quality_control": {
+    "initial_filter_threshold": 60,
+    "deep_analysis_threshold": 70,
+    "featured_threshold": 85,
+    "auto_reject_below": 50
+  },
+
+  "content_categories": {
+    "primary": [
+      {
+        "name": "机器学习基础",
+        "keywords": ["supervised learning", "unsupervised learning", "optimization", "gradient descent"]
+      },
+      {
+        "name": "深度学习",
+        "keywords": ["neural network", "CNN", "RNN", "LSTM", "transformer"]
+      },
+      {
+        "name": "自然语言处理",
+        "keywords": ["NLP", "LLM", "BERT", "GPT", "tokenization", "embedding"]
+      },
+      {
+        "name": "计算机视觉",
+        "keywords": ["computer vision", "image classification", "object detection", "segmentation"]
+      },
+      {
+        "name": "强化学习",
+        "keywords": ["reinforcement learning", "RL", "Q-learning", "policy gradient", "RLHF"]
+      },
+      {
+        "name": "AI工具与框架",
+        "keywords": ["PyTorch", "TensorFlow", "Hugging Face", "Keras", "JAX"]
+      }
+    ]
+  },
+
+  "test_parameters": {
+    "test_mode": true,
+    "test_duration_days": 7,
+    "max_test_articles": 50,
+    "enable_debug_logging": true,
+    "sample_sources_only": true,
+    "dry_run": false
+  },
+
+  "integration_guide": {
+    "step_1": "配置 RSS 抓取器：使用 test_sources 中 enabled=true 的源",
+    "step_2": "部署 Dify 初评流程：使用 workflow_config.filtering 参数",
+    "step_3": "部署 Dify 分析流程：使用 workflow_config.analysis 参数，调整评分维度权重",
+    "step_4": "可选翻译流程：仅翻译高分文章（score >= 75）",
+    "step_5": "配置数据库：使用 SQLite 存储在 ./data/ai_student_articles.db",
+    "step_6": "测试运行：先抓取 2-3 篇文章，验证完整流程",
+    "step_7": "监控质量：检查评分分布，调整阈值"
+  },
+
+  "next_steps": {
+    "after_test": [
+      "根据测试结果调整 quality_threshold",
+      "添加更多高质量源（参考 rss_sources_for_ai_students.json）",
+      "优化领域分类和标签体系",
+      "开发简单的 Web 界面用于阅读",
+      "配置每日/每周摘要推送"
+    ]
+  },
+
+  "notes": {
+    "why_7_sources": "测试阶段选择 7 个高质量源，覆盖教学(3)、实验室(2)、实践(2)，避免数据过载",
+    "arxiv_disabled": "arXiv 每日产出海量论文，初期测试先禁用，等流程稳定后再启用",
+    "no_podcasts_videos": "专注文章类内容，无需播客转录和视频处理",
+    "translation_selective": "仅翻译高分文章节省成本",
+    "gemini_2.0": "优先使用 Gemini 2.0 Flash（成本低、速度快），GPT-4o-mini 作为备用"
+  }
+}

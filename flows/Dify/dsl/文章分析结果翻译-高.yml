@@ -1,17 +1,18 @@
 app:
-  description: 利用大语言模型对播客分析的结果进行翻译
-  icon: 📻
-  icon_background: '#FFE4E8'
+  description: 利用大语言模型对文章分析的结果进行翻译
+  icon: 🇬🇧
+  icon_background: '#FFEAD5'
   mode: workflow
-  name: ArticleAggregator 播客分析结果翻译
+  name: 文章分析结果翻译-高
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/gemini:0.1.5@012c9e0467a11910db974e0436348e93a376fdc96381946a3db2c56708377381
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.5.12@2a2bf8f78552bd52b1d2e51995daaa7b7c04b2572b29e661b14c1b773ab8d45a
+    version: null
 kind: app
-version: 0.2.0
+version: 0.5.0
 workflow:
   conversation_variables: []
   environment_variables: []
@@ -117,21 +118,22 @@ workflow:
       zIndex: 0
     - data:
         isInIteration: false
+        isInLoop: false
         sourceType: code
         targetType: if-else
-      id: 1719357159255-source-1747011839276-target
+      id: 1719357159255-source-1747280055611-target
       source: '1719357159255'
       sourceHandle: source
-      target: '1747011839276'
+      target: '1747280055611'
       targetHandle: target
       type: custom
       zIndex: 0
     - data:
-        isInIteration: false
+        isInLoop: false
         sourceType: if-else
         targetType: llm
-      id: 1747011839276-true-1719665970105-target
-      source: '1747011839276'
+      id: 1747280055611-true-1719665970105-target
+      source: '1747280055611'
       sourceHandle: 'true'
       target: '1719665970105'
       targetHandle: target
@@ -139,41 +141,42 @@ workflow:
       zIndex: 0
     - data:
         isInIteration: false
+        isInLoop: false
         sourceType: if-else
         targetType: end
-      id: 1747011839276-false-1747011862569-target
-      source: '1747011839276'
+      id: 1747280055611-false-1747280093047-target
+      source: '1747280055611'
       sourceHandle: 'false'
-      target: '1747011862569'
+      target: '1747280093047'
       targetHandle: target
       type: custom
       zIndex: 0
     nodes:
     - data:
-        desc: 输入播客 Id
+        desc: 输入文章 Id
         selected: false
         title: 开始
         type: start
         variables:
-        - label: ArticleAggregator 播客 Id
+        - label: BestBlogs 文章 Id
           max_length: 20
           options: []
           required: true
           type: text-input
           variable: input_article_id
-      height: 118
+      height: 136
       id: '1718352852007'
       position:
         x: 30
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 30
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         authorization:
           config: null
@@ -196,45 +199,47 @@ workflow:
           max_connect_timeout: 0
           max_read_timeout: 0
           max_write_timeout: 0
-        title: 获取播客转录信息
+        title: 获取文章信息
         type: http-request
-        url: https://api.bestblogs.dev/api/resource/podcast/transcription
+        url: https://api.bestblogs.dev/api/resource/markdown
         variables: []
-      height: 155
+      height: 136
       id: '1719356422842'
       position:
         x: 334
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 334
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         code: "import json\n\ndef main(json_body):\n    \"\"\"\n    处理 REST 请求返回的\
           \ JSON 字符串。\n    \n    若输入为空字符串或JSON解析失败，则返回 {'success': 'false'}。\n   \
           \ 若 JSON 字符串解析成功且 'success' 为 'true'，则返回包含指定键值的字典。\n    否则返回 {'success':\
           \ 'false'}。\n\n    参数:\n        json_body (str): 包含 JSON 数据的字符串。\n    \n\
           \    返回:\n        dict: 包含 'success' 键和指定的数据键值对的字典。\n    \"\"\"\n    \n\
-          \    result = {'success': 'false'}\n    \n    if not json_body:\n      \
-          \  return result\n\n    try:\n        data = json.loads(json_body)\n   \
-          \     if isinstance(data, dict) and data.get('success') == 'true':\n   \
-          \         result['success'] = 'true'\n            result['contentXml'] =\
-          \ data.get('contentXml', '')\n            result['languageName'] = data.get('languageName',\
-          \ '中文')\n            result['destLanguageName'] = data.get('destLanguageName',\
-          \ '英文')\n            result['analysisResult'] = data.get('analysisResult',\
-          \ '')\n        return result\n    except json.JSONDecodeError:\n       \
-          \ return result\n    except Exception:\n        return result"
+          \    result = {\n        'success': 'false',\n        'markdown': '',\n\
+          \        'sourceName': '',\n        'title': '',\n        'url': '',\n \
+          \       'languageName': '',\n        'destLanguageName': '',\n        'analysisResult':\
+          \ ''\n    }\n    \n    if not json_body:\n        return result\n\n    try:\n\
+          \        data = json.loads(json_body)\n        if isinstance(data, dict)\
+          \ and data.get('success') == 'true':\n            result['success'] = 'true'\n\
+          \            result['markdown'] = data.get('markdown', '')\n           \
+          \ result['sourceName'] = data.get('sourceName', '')\n            result['title']\
+          \ = data.get('title', '')\n            result['url'] = data.get('url', '')\n\
+          \            result['languageName'] = data.get('languageName', '中文')\n \
+          \           result['destLanguageName'] = data.get('destLanguageName', '英文')\n\
+          \            result['analysisResult'] = data.get('analysisResult', '')\n\
+          \        return result\n    except json.JSONDecodeError:\n        return\
+          \ result\n    except Exception:\n        return result"
         code_language: python3
         desc: 解析请求结果
         outputs:
           analysisResult:
-            children: null
-            type: string
-          contentXml:
             children: null
             type: string
           destLanguageName:
@@ -243,30 +248,42 @@ workflow:
           languageName:
             children: null
             type: string
+          markdown:
+            children: null
+            type: string
+          sourceName:
+            children: null
+            type: string
           success:
             children: null
             type: string
+          title:
+            children: null
+            type: string
+          url:
+            children: null
+            type: string
         selected: false
-        title: 解析播客转录信息
+        title: 解析文章信息
         type: code
         variables:
         - value_selector:
           - '1719356422842'
           - body
           variable: json_body
-      height: 82
+      height: 79
       id: '1719357159255'
       position:
         x: 638
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 638
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -280,18 +297,19 @@ workflow:
         prompt_template:
         - id: 9f405119-fd90-46f9-9479-312561ef194c
           role: system
-          text: "# AI 翻译专家\n\n## 任务\n识别并翻译给定JSON文本中的专业术语和内容。将原始语言（{{#1719357159255.languageName#}}）翻译成目标语言（{{#1719357159255.destLanguageName#}}）。\n\
-            \n## 步骤\n1. 识别所有字段中的专业术语。\n2. 使用识别的专业术语，翻译整个JSON内容，使用字段使用 {{#1719357159255.destLanguageName#}}语言输出。\n\
-            \n## 翻译规则与注意事项\n1. 准确翻译专业术语：\n   - 按照通用使用习惯处理全称和缩写。\n   - 保留常用缩写，如AI、UX、LLM、Java等。\n\
-            2. 保持原文术语：如果术语已经是目标语言，保持不变。\n3. 未识别术语：对未在专业术语列表中的术语，尝试合理翻译。\n4. 保持风格：维持原文的语气和表达方式。\n\
-            5. 考虑上下文：翻译时注意整体语境，确保语义连贯。\n6. 保持格式：维持原JSON结构，包括保留原有的key名称。\n\n## 质量检查\n\
-            - 确保翻译准确性和流畅性\n- 检查专业术语使用的一致性\n- 验证是否保持了原文的核心含义和语气\n\n## 输入\n1. 原始语言：[在用户提示词中指定]\n\
-            2. 目标语言：[在用户提示词中指定]\n3. 待翻译的JSON字符串：\n[在用户提示词中提供]\n\n## 输出格式\n\n### 1.\
-            \ 专业术语列表\n{原文术语1} -> {翻译后术语1}\n{原文术语2} -> {翻译后术语2}\n{原文术语3} -> {翻译后术语3}\n\
-            \n### 2. 翻译后的JSON（保持原有结构和key名称）\n[完整的翻译后JSON]"
+          text: "# AI 翻译专家\n\n## 任务\n识别并翻译给定JSON文本中的专业术语和内容。将原始语言翻译成目标语言。原始语言为 {{#1719357159255.languageName#}}，目标语言为\
+            \ {{#1719357159255.destLanguageName#}}。\n\n## 步骤\n1. 识别所有字段中的专业术语。\n2.\
+            \ 使用识别的专业术语，翻译整个JSON内容。\n\n## 翻译规则与注意事项\n1. 准确翻译专业术语：\n   - 按照通用使用习惯处理全称和缩写。\n\
+            \   - 保留常用缩写，如AI、UX、LLM、Java等。\n2. 保持原文术语：如果术语已经是目标语言，保持不变。\n3. 未识别术语：对未在专业术语列表中的术语，尝试合理翻译。\n\
+            4. 保持风格：维持原文的语气和表达方式。\n5. 考虑上下文：翻译时注意整体语境，确保语义连贯。\n6. 保持格式：维持原JSON结构，包括保留原有的key名称。\n\
+            \n## 质量检查\n- 确保翻译准确性和流畅性\n- 检查专业术语使用的一致性\n- 验证是否保持了原文的核心含义和语气\n\n## 输入\n\
+            1. 原始语言：[在用户提示词中指定]\n2. 目标语言：[在用户提示词中指定]\n3. 待翻译的JSON字符串：\n[在用户提示词中提供]\n\
+            \n## 输出格式\n\n### 1. 专业术语列表\n{原文术语1} -> {翻译后术语1}\n{原文术语2} -> {翻译后术语2}\n\
+            {原文术语3} -> {翻译后术语3}\n\n### 2. 翻译后的JSON（保持原有结构和key名称）\n[完整的翻译后JSON]"
         - id: 7c8529ca-9914-42e7-9132-299528454ba1
           role: user
-          text: '请根据要求识别专业术语，并对 JSON 字符串进行翻译，按要求输出翻译后的目标语言的 JSON 字符串，包括保留原有的key名称。
+          text: '请根据要求识别专业术语，并对 JSON 字符串进行翻译，按要求输出翻译后的目标语言（{{#1719357159255.destLanguageName#}}）的
+            JSON 字符串，包括保留原有的key名称。
 
 
             1. 原始语言：
@@ -317,19 +335,19 @@ workflow:
         variables: []
         vision:
           enabled: false
-      height: 118
+      height: 115
       id: '1719665970105'
       position:
         x: 1246
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 1246
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -346,7 +364,7 @@ workflow:
           text: "# AI 翻译检查专家\n\n## 简介\n指导大语言模型分析技术文章预处理结果的初次翻译，识别问题，为后续优化奠定基础。\n\n\
             ## 背景\n- 内容：网站中涵盖人工智能、编程、产品、设计、商业和科技等领域技术文章\n- 预处理：已提取标题、摘要、主要观点、关键金句和标签\n\
             - 翻译方向：英译中或中译英\n- 目的：将预处理的信息进行翻译，便于目标语言读者阅读\n- 要求：准确传达原意，符合目标语言习惯\n\n\
-            ## 任务目标\n全面检查初次翻译，识别问题，为后续优化提供指南。\n\n## 输入格式\n1. 原始语言\n2. 目标语言\n3. 原文信息（XML）\n\
+            ## 任务目标\n全面检查初次翻译，识别问题，为后续优化提供指南。\n\n## 输入格式\n1. 原始语言\n2. 目标语言\n3. 原文（Markdown）\n\
             4. 分析结果（JSON）\n5. 专业术语识别及初次翻译结果\n\n## JSON 结构\n- title: 标题\n- oneSentenceSummary:\
             \ 一句话总结\n- summary: 全文摘要\n- tags: 标签列表\n- mainPoints: 主要观点（point 和 explanation）\n\
             - keyQuotes: 关键引用\n\n## 分析要点\n1. 术语与技术概念\n   - 定位：术语或技术概念的翻译问题\n   - 描述：准确性、一致性或表达问题\n\
@@ -373,11 +391,11 @@ workflow:
             {{#1719357159255.destLanguageName#}}
 
 
-            3. 原文信息（XML）：
+            3. 原文（Markdown）：
 
-            ```xml
+            ```markdown
 
-            {{#1719357159255.contentXml#}}
+            {{#1719357159255.markdown#}}
 
             ```
 
@@ -401,19 +419,19 @@ workflow:
           configs:
             detail: high
           enabled: false
-      height: 118
+      height: 115
       id: '1719666182344'
       position:
         x: 1550
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 1550
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -427,9 +445,8 @@ workflow:
         prompt_template:
         - id: 0017c1f5-6a65-463f-98bd-b384f55e1362
           role: system
-          text: "# AI 翻译优化专家\n\n## 简介\n对初次翻译的技术文章进行优化和意译，确保翻译既忠实原意又符合目标语言表达习惯，原始语言为\
-            \ {{#1719357159255.languageName#}}，目标语言为 {{#1719357159255.destLanguageName#}}。\n\
-            \n## 背景\n- 内容：网站上关于人工智能、编程技术、产品、设计、商业、科技类的文章，已提取文章标题、一句话总结、文章摘要、主要观点、关键金句和标签等信息的\
+          text: "# AI 翻译优化专家\n\n## 简介\n对初次翻译的技术文章进行优化和意译，确保翻译既忠实原意又符合目标语言表达习惯。\n\n\
+            ## 背景\n- 内容：网站上关于人工智能、编程技术、产品、设计、商业、科技类的文章，已提取文章标题、一句话总结、文章摘要、主要观点、关键金句和标签等信息的\
             \ JSON 字符串\n- 初次翻译：已完成，但可能存在问题\n- 翻译方向：英译中或中译英\n- 目标：提高翻译质量，使其更易于目标读者理解\n\
             \n## 任务目标\n基于初次翻译和识别出的问题，进行重新翻译和意译，提高准确性、可读性和文化适应性。\n\n## 输入格式\n1. 原始语言\n\
             2. 目标语言\n3. 原文分析结果（JSON）\n4. 识别的专业术语列表和初次翻译结果\n5. 翻译问题分析结果（Markdown）\n\
@@ -484,19 +501,19 @@ workflow:
           configs:
             detail: high
           enabled: false
-      height: 118
+      height: 115
       id: '1719666267591'
       position:
         x: 1854
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 1854
-        y: 277.5
-      selected: true
+        y: 269.5
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         desc: 返回翻译结果
         outputs:
@@ -507,25 +524,25 @@ workflow:
         selected: false
         title: 结束 2
         type: end
-      height: 118
+      height: 115
       id: '1719666292377'
       position:
         x: 2158
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 2158
-        y: 277.5
+        y: 269.5
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         cases:
         - case_id: 'true'
           conditions:
           - comparison_operator: is
-            id: 7cd2f910-eb44-44e0-8921-8c7ebb0704ff
+            id: 272a4646-3a97-480b-889b-303332dafb21
             value: 'true'
             varType: string
             variable_selector:
@@ -535,40 +552,45 @@ workflow:
           logical_operator: and
         desc: ''
         selected: false
-        title: 判断是否解析成功
+        title: 判断文章内容是否已获取
         type: if-else
-      height: 126
-      id: '1747011839276'
+      height: 123
+      id: '1747280055611'
       position:
         x: 942
-        y: 277.5
+        y: 269.5
       positionAbsolute:
         x: 942
-        y: 277.5
-      selected: false
+        y: 269.5
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
-        desc: ''
-        outputs: []
+        desc: 返回空结果
+        outputs:
+        - value_selector:
+          - '1719357159255'
+          - analysisResult
+          variable: analysisResult
         selected: false
-        title: 返回空结果
+        title: 结束
         type: end
-      height: 54
-      id: '1747011862569'
+      height: 115
+      id: '1747280093047'
       position:
         x: 1246
-        y: 435.5
+        y: 427.5
       positionAbsolute:
         x: 1246
-        y: 435.5
+        y: 427.5
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     viewport:
-      x: 0
-      y: 0
+      x: -411.04999999999995
+      y: 98.5
       zoom: 0.7
+  rag_pipeline_variables: []

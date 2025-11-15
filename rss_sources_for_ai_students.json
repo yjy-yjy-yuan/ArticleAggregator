@@ -1,0 +1,369 @@
+{
+  "target_audience": "AI领域的大学生和研究生",
+  "focus_areas": ["机器学习", "深度学习", "NLP", "计算机视觉", "强化学习"],
+  "update_date": "2025-01-15",
+
+  "sources": [
+    {
+      "name": "Jay Alammar",
+      "url": "https://jalammar.github.io/feed.xml",
+      "category": "教学与可视化",
+      "difficulty": "本科生",
+      "priority": "highest",
+      "description": "⭐ Transformer、BERT、GPT 可视化教学王者，图解复杂概念",
+      "best_for": "理解 Transformer 架构、注意力机制",
+      "github_verified": true
+    },
+    {
+      "name": "Lilian Weng",
+      "url": "https://lilianweng.github.io/lil-log/feed.xml",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "highest",
+      "description": "⭐ OpenAI 研究员，深入浅出的 ML 技术分析",
+      "best_for": "强化学习、Prompt Engineering、RLHF 深度理解",
+      "github_verified": true
+    },
+    {
+      "name": "OpenAI Blog",
+      "url": "https://blog.openai.com/rss/",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "highest",
+      "description": "⭐ GPT、DALL-E、CLIP 官方研究博客，学生必读",
+      "best_for": "大语言模型、RLHF、多模态学习最新进展",
+      "github_verified": true
+    },
+    {
+      "name": "Hugging Face Blog",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "highest",
+      "description": "⭐ Transformers 库官方教程，实践为主，代码质量高",
+      "best_for": "动手实践 NLP、微调模型、部署应用",
+      "github_verified": true
+    },
+    {
+      "name": "Papers with Code",
+      "url": "https://paperswithcode.com/latest",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "highest",
+      "description": "⭐ 论文+代码实现，刷论文必备",
+      "best_for": "复现论文、跟踪 SOTA、学习实现细节",
+      "github_verified": true,
+      "note": "可能需要手动检查 RSS URL"
+    },
+    {
+      "name": "DeepMind Blog",
+      "url": "https://deepmind.com/blog/feed/basic/",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "AlphaGo、AlphaFold、强化学习权威",
+      "best_for": "强化学习、蛋白质折叠、游戏 AI",
+      "github_verified": true
+    },
+    {
+      "name": "Google AI Blog",
+      "url": "http://googleresearch.blogspot.com/atom.xml",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "Google 最新 AI 研究，论文解读",
+      "best_for": "计算机视觉、Transformer、联邦学习",
+      "github_verified": true
+    },
+    {
+      "name": "Meta AI",
+      "url": "https://ai.meta.com/blog/rss/",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "LLaMA、PyTorch、FAIR 研究",
+      "best_for": "开源大模型、PyTorch 最佳实践",
+      "github_verified": true
+    },
+    {
+      "name": "Berkeley AI Research (BAIR)",
+      "url": "http://bair.berkeley.edu/blog/feed.xml",
+      "category": "顶级实验室",
+      "difficulty": "博士生",
+      "priority": "high",
+      "description": "学术前沿，深度强化学习、机器人学",
+      "best_for": "前沿研究、深度 RL、机器人学习",
+      "github_verified": true
+    },
+    {
+      "name": "ML@CMU",
+      "url": "https://blog.ml.cmu.edu/feed/",
+      "category": "顶级实验室",
+      "difficulty": "博士生",
+      "priority": "high",
+      "description": "CMU 机器学习博客，学术质量极高",
+      "best_for": "理论深度、统计学习、因果推断",
+      "github_verified": true
+    },
+    {
+      "name": "Distill",
+      "url": "http://distill.pub/rss.xml",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "可视化 ML 论文解读，质量极高（更新较慢）",
+      "best_for": "理解注意力机制、特征可视化、可解释性",
+      "github_verified": true
+    },
+    {
+      "name": "The Gradient",
+      "url": "https://thegradient.pub/rss/",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "medium",
+      "description": "AI 深度文章和访谈，适合研究生",
+      "best_for": "行业洞察、研究者访谈、技术综述",
+      "github_verified": true
+    },
+    {
+      "name": "Sebastian Ruder",
+      "url": "http://ruder.io/rss/index.rss",
+      "category": "教学与可视化",
+      "difficulty": "研究生",
+      "priority": "medium",
+      "description": "NLP 研究综述和 NLP Newsletter",
+      "best_for": "NLP 领域综述、迁移学习、多语言模型",
+      "github_verified": true
+    },
+    {
+      "name": "PyTorch Blog",
+      "url": "https://pytorch.org/blog/feed.xml",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "high",
+      "description": "PyTorch 官方教程和最佳实践",
+      "best_for": "PyTorch 使用技巧、分布式训练、性能优化",
+      "github_verified": true
+    },
+    {
+      "name": "TensorFlow Blog",
+      "url": "https://blog.tensorflow.org/feeds/posts/default",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "medium",
+      "description": "TensorFlow 官方教程",
+      "best_for": "TensorFlow 应用、模型部署",
+      "github_verified": true
+    },
+    {
+      "name": "Towards Data Science",
+      "url": "https://towardsdatascience.com/feed",
+      "category": "实践应用",
+      "difficulty": "本科生",
+      "priority": "medium",
+      "description": "Medium 高质量 AI 教程和实践",
+      "best_for": "入门教程、项目实践、面试准备",
+      "github_verified": true,
+      "note": "内容质量参差不齐，需初评过滤"
+    },
+    {
+      "name": "arXiv cs.AI (Artificial Intelligence)",
+      "url": "http://export.arxiv.org/rss/cs.AI",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "arXiv AI 论文每日更新",
+      "best_for": "追踪最新研究、找论文选题",
+      "github_verified": true
+    },
+    {
+      "name": "arXiv cs.LG (Machine Learning)",
+      "url": "http://export.arxiv.org/rss/cs.LG",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "arXiv 机器学习论文，量最大",
+      "best_for": "ML 理论、算法创新",
+      "github_verified": true
+    },
+    {
+      "name": "arXiv cs.CV (Computer Vision)",
+      "url": "http://export.arxiv.org/rss/cs.CV",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "medium",
+      "description": "计算机视觉论文",
+      "best_for": "CV 方向学生，图像处理、目标检测等",
+      "github_verified": true
+    },
+    {
+      "name": "arXiv cs.CL (Computation and Language)",
+      "url": "http://export.arxiv.org/rss/cs.CL",
+      "category": "论文追踪",
+      "difficulty": "研究生",
+      "priority": "medium",
+      "description": "NLP 论文",
+      "best_for": "NLP 方向学生，语言模型、机器翻译等",
+      "github_verified": true
+    },
+    {
+      "name": "Yannic Kilcher (YouTube)",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCZHmQk67mSJgfCCTn7xBfew",
+      "category": "视频教程",
+      "difficulty": "研究生",
+      "priority": "high",
+      "description": "⭐ 论文精读视频，深度解析，研究生必看",
+      "best_for": "理解论文细节、批判性思考",
+      "github_verified": true
+    },
+    {
+      "name": "Two Minute Papers (YouTube)",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg",
+      "category": "视频教程",
+      "difficulty": "本科生",
+      "priority": "medium",
+      "description": "AI 论文快速解读，2分钟了解最新研究",
+      "best_for": "快速了解研究动态、启发灵感",
+      "github_verified": true
+    },
+    {
+      "name": "DeepLearningAI (YouTube)",
+      "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCcIXc5mJsHVYTZR1maL5l9w",
+      "category": "视频教程",
+      "difficulty": "本科生",
+      "priority": "medium",
+      "description": "吴恩达团队官方频道，系统课程",
+      "best_for": "系统学习、课程补充",
+      "github_verified": true
+    },
+    {
+      "name": "MIT News - AI",
+      "url": "http://news.mit.edu/rss/topic/artificial-intelligence2",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "medium",
+      "description": "MIT AI 研究新闻和突破",
+      "best_for": "了解学术机构研究方向",
+      "github_verified": true
+    },
+    {
+      "name": "Amazon Science",
+      "url": "https://www.amazon.science/index.rss",
+      "category": "顶级实验室",
+      "difficulty": "研究生",
+      "priority": "low",
+      "description": "亚马逊 AI 应用研究",
+      "best_for": "推荐系统、语音识别、工业应用",
+      "github_verified": true
+    }
+  ],
+
+  "configuration": {
+    "max_articles_per_source": 3,
+    "total_max_articles": 25,
+    "update_frequency": "daily",
+    "priority_distribution": {
+      "highest": 5,
+      "high": 10,
+      "medium": 8,
+      "low": 2
+    }
+  },
+
+  "metadata": {
+    "total_sources": 25,
+    "by_category": {
+      "顶级实验室": 8,
+      "教学与可视化": 5,
+      "论文追踪": 5,
+      "实践应用": 4,
+      "视频教程": 3
+    },
+    "by_difficulty": {
+      "本科生": 8,
+      "研究生": 14,
+      "博士生": 3
+    },
+    "github_repositories": [
+      "https://github.com/tuan3w/awesome-tech-rss",
+      "https://github.com/impressivewebs/frontend-feeds"
+    ]
+  },
+
+  "usage_recommendations": {
+    "本科生_推荐订阅": [
+      "Jay Alammar",
+      "Hugging Face Blog",
+      "PyTorch Blog",
+      "Two Minute Papers",
+      "DeepLearningAI",
+      "Towards Data Science"
+    ],
+    "研究生_推荐订阅": [
+      "Lilian Weng",
+      "OpenAI Blog",
+      "DeepMind Blog",
+      "BAIR",
+      "Papers with Code",
+      "Yannic Kilcher",
+      "arXiv cs.LG",
+      "Distill"
+    ],
+    "博士生_推荐订阅": [
+      "所有研究生推荐源",
+      "ML@CMU",
+      "Sebastian Ruder",
+      "Google AI Blog",
+      "Meta AI",
+      "arXiv (所有相关领域)"
+    ],
+    "按研究方向": {
+      "NLP": [
+        "Hugging Face",
+        "Sebastian Ruder",
+        "OpenAI Blog",
+        "arXiv cs.CL"
+      ],
+      "CV": [
+        "Google AI Blog",
+        "Meta AI",
+        "arXiv cs.CV"
+      ],
+      "强化学习": [
+        "DeepMind",
+        "BAIR",
+        "Lilian Weng"
+      ],
+      "大语言模型": [
+        "OpenAI",
+        "Hugging Face",
+        "Lilian Weng",
+        "Jay Alammar"
+      ]
+    }
+  },
+
+  "filtering_strategy": {
+    "priority": "学术质量 > 教学价值 > 实践应用",
+    "avoid": [
+      "纯工程实践（如 DevOps、云计算）",
+      "商业/市场营销内容",
+      "产品设计/UX",
+      "非 AI 领域技术文章"
+    ],
+    "focus": [
+      "论文解读和综述",
+      "算法原理和数学推导",
+      "实验结果和消融研究",
+      "开源模型和数据集",
+      "可视化教学材料"
+    ]
+  },
+
+  "quality_notes": {
+    "arXiv_sources": "论文量大，需要结合初评流程过滤低质量论文",
+    "youtube_sources": "视频内容，可能需要特殊处理（提取描述文本）",
+    "towards_data_science": "Medium 平台，内容质量参差，建议设置较高的初评阈值",
+    "update_frequency_varies": "Distill 更新慢但质量极高，arXiv 每日大量更新"
+  }
+}

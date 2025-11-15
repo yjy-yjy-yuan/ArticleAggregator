@@ -3,10 +3,16 @@ app:
   icon: sparkle
   icon_background: '#D3F8DF'
   mode: workflow
-  name: ArticleAggregator 文章分析流程-V2
+  name: 文章分析流程-V2
   use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/gemini:0.5.12@2a2bf8f78552bd52b1d2e51995daaa7b7c04b2572b29e661b14c1b773ab8d45a
+    version: null
 kind: app
-version: 0.1.5
+version: 0.5.0
 workflow:
   conversation_variables: []
   environment_variables: []
@@ -27,8 +33,8 @@ workflow:
       enabled: false
       fileUploadConfig:
         audio_file_size_limit: 50
-        batch_count_limit: 10
-        file_size_limit: 100
+        batch_count_limit: 5
+        file_size_limit: 15
         image_file_size_limit: 10
         video_file_size_limit: 100
         workflow_file_upload_limit: 10
@@ -134,25 +140,25 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: ArticleAggregator 文章 Id
+        - label: BestBlogs 文章 Id
           max_length: 20
           options: []
           required: true
           type: text-input
           variable: input_article_id
-      height: 118
+      height: 136
       id: '1718352852007'
       position:
-        x: 30
-        y: 279
+        x: 20
+        y: 258
       positionAbsolute:
-        x: 30
-        y: 279
+        x: 20
+        y: 258
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 242
     - data:
         desc: 输出最终分析结果
         outputs:
@@ -160,10 +166,14 @@ workflow:
           - '1719444170368'
           - text
           variable: analysisResult
+        - value_selector:
+          - '1719357159255'
+          - destLanguageName
+          variable: destLanguageName
         selected: false
         title: 结束
         type: end
-      height: 118
+      height: 141
       id: '1718356146046'
       position:
         x: 1854
@@ -175,7 +185,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         authorization:
           config: null
@@ -193,7 +203,8 @@ workflow:
           max_retries: 3
           retry_enabled: true
           retry_interval: 100
-        selected: false
+        selected: true
+        ssl_verify: true
         timeout:
           max_connect_timeout: 0
           max_read_timeout: 0
@@ -202,7 +213,7 @@ workflow:
         type: http-request
         url: https://api.bestblogs.dev/api/resource/markdown
         variables: []
-      height: 135
+      height: 136
       id: '1719356422842'
       position:
         x: 334
@@ -210,24 +221,26 @@ workflow:
       positionAbsolute:
         x: 334
         y: 279
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         code: "import json\n\ndef main(json_body):\n    \"\"\"\n    处理 REST 请求返回的\
-          \ JSON 字符串。\n    \n    若输入为空字符串或JSON解析失败，则返回 {'success': 'false'}。\n   \
-          \ 若 JSON 字符串解析成功且 'success' 为 'true'，则返回包含指定键值的字典。\n    否则返回 {'success':\
-          \ 'false'}。\n\n    参数:\n        json_body (str): 包含 JSON 数据的字符串。\n    \n\
-          \    返回:\n        dict: 包含 'success' 键和指定的数据键值对的字典。\n    \"\"\"\n    \n\
-          \    result = {'success': 'false'}\n    \n    if not json_body:\n      \
-          \  return result\n\n    try:\n        data = json.loads(json_body)\n   \
-          \     if isinstance(data, dict) and data.get('success') == 'true':\n   \
-          \         result['success'] = 'true'\n            result['markdown'] = data.get('markdown',\
-          \ '')\n            result['sourceName'] = data.get('sourceName', '')\n \
-          \           result['languageName'] = data.get('languageName', '中文')\n  \
-          \          result['destLanguageName'] = data.get('destLanguageName', '英文')\n\
+          \ JSON 字符串。\n\n    若输入为空字符串或JSON解析失败，则返回 {'success': 'false'}。\n    若 JSON\
+          \ 字符串解析成功且 'success' 为 'true'，则返回包含指定键值的字典。\n    否则返回 {'success': 'false'}。\n\
+          \n    参数:\n        json_body (str): 包含 JSON 数据的字符串。\n\n    返回:\n       \
+          \ dict: 包含 'success' 键和指定的数据键值对的字典。\n    \"\"\"\n\n    result = {\n    \
+          \    'success': 'false',\n        'markdown': '',\n        'sourceName':\
+          \ '',\n        'languageName': '',\n        'destLanguageName': '',\n  \
+          \      'title': '',\n        'url': '',\n        'wordCount': 0\n    }\n\
+          \n    if not json_body:\n        return result\n\n    try:\n        data\
+          \ = json.loads(json_body)\n        if isinstance(data, dict) and data.get('success')\
+          \ == 'true':\n            result['success'] = 'true'\n            result['markdown']\
+          \ = data.get('markdown', '')\n            result['sourceName'] = data.get('sourceName',\
+          \ '')\n            result['languageName'] = data.get('languageName', '中文')\n\
+          \            result['destLanguageName'] = data.get('destLanguageName', '英文')\n\
           \            result['title'] = data.get('title', '')\n            result['url']\
           \ = data.get('url', '')\n            result['wordCount'] = data.get('wordCount',\
           \ 100)\n        return result\n    except json.JSONDecodeError:\n      \
@@ -267,7 +280,7 @@ workflow:
           - '1719356422842'
           - body
           variable: json_body
-      height: 82
+      height: 79
       id: '1719357159255'
       position:
         x: 638
@@ -279,7 +292,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -289,8 +302,8 @@ workflow:
           completion_params:
             temperature: 0.7
           mode: chat
-          name: google/gemini-2.0-flash-exp:free
-          provider: openrouter
+          name: gemini-2.0-flash-001
+          provider: langgenius/gemini/google
         prompt_template:
         - id: 38022a40-3101-4709-9a69-57ddef9e086a
           role: system
@@ -325,13 +338,13 @@ workflow:
             \  </metadata>\n <content>\n   <![CDATA[\n{{#1719357159255.markdown#}}\n\
             \    ]]>\n  </content>\n  <previousAnalysisResult>\n    <![CDATA[\n  \
             \  {{#1719660406112.text#}}\n    ]]>\n  </previousAnalysisResult>\n</article>"
-        selected: true
+        selected: false
         title: 检查和反思
         type: llm
         variables: []
         vision:
           enabled: false
-      height: 158
+      height: 147
       id: '1719381882148'
       position:
         x: 1246
@@ -339,11 +352,11 @@ workflow:
       positionAbsolute:
         x: 1246
         y: 279
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -353,8 +366,8 @@ workflow:
           completion_params:
             temperature: 0.7
           mode: chat
-          name: deepseek-reasoner
-          provider: deepseek
+          name: gemini-2.0-flash-001
+          provider: langgenius/gemini/google
         prompt_template:
         - id: a3799a74-b248-4202-a6ee-134857c2d020
           role: system
@@ -424,7 +437,7 @@ workflow:
           configs:
             detail: high
           enabled: false
-      height: 126
+      height: 115
       id: '1719444170368'
       position:
         x: 1550
@@ -436,7 +449,7 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     - data:
         context:
           enabled: false
@@ -446,8 +459,8 @@ workflow:
           completion_params:
             temperature: 0.7
           mode: chat
-          name: google/gemini-2.0-flash-thinking-exp-1219:free
-          provider: openrouter
+          name: gemini-2.5-flash
+          provider: langgenius/gemini/google
         prompt_template:
         - edition_type: basic
           id: 3a219dd6-2439-4a5c-beae-0a3b14961b8b
@@ -542,7 +555,7 @@ workflow:
         variables: []
         vision:
           enabled: false
-      height: 126
+      height: 115
       id: '1719660406112'
       position:
         x: 942
@@ -554,8 +567,9 @@ workflow:
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 244
+      width: 241
     viewport:
-      x: 2.800000000000182
-      y: 35.900000000000006
-      zoom: 0.7
+      x: 140.7081431673722
+      y: -100.55788500951462
+      zoom: 1
+  rag_pipeline_variables: []
