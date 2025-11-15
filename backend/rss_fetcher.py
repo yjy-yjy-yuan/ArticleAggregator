@@ -29,7 +29,7 @@ class RSSFetcher:
             'User-Agent': 'ArticleAggregator/1.0 (RSS Reader)'
         })
 
-    def fetch_all_sources(self, max_articles_per_source: int = 10) -> Dict[str, int]:
+    def fetch_all_sources(self, max_articles_per_source: int = 5) -> Dict[str, int]:
         """
         抓取所有启用的 RSS 源
 
@@ -68,7 +68,7 @@ class RSSFetcher:
 
         return stats
 
-    def fetch_source(self, source: RSSSource, max_articles: int = 10) -> int:
+    def fetch_source(self, source: RSSSource, max_articles: int = 5) -> int:
         """
         抓取单个 RSS 源
 

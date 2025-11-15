@@ -118,7 +118,7 @@ def delete_source(source_id: int, db: Session = Depends(get_db)):
 @router.post("/api/rss/fetch")
 def fetch_rss_feeds(
     background_tasks: BackgroundTasks,
-    max_articles_per_source: int = 20,
+    max_articles_per_source: int = 5,
     db: Session = Depends(get_db)
 ):
     """手动触发 RSS 抓取"""

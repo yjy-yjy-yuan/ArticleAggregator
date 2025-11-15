@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI学生文章聚合器 - 精选文章库</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🎓 AI学生文章聚合器</h1>
+        <p>精选AI学术文章，每日更新</p>
+    </header>
+
+    <main>
+        <div class="controls">
+            <button id="refreshBtn" onclick="loadBatches()">🔄 刷新</button>
+            <button id="fetchBtn" onclick="triggerFetch()">📥 抓取新文章</button>
+        </div>
+
+        <div id="loading" class="loading" style="display: none;">
+            <p>⏳ 加载中...</p>
+        </div>
+
+        <div id="batchesContainer" class="batches-grid">
+            <!-- 批次卡片将动态加载到这里 -->
+        </div>
+
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <p>📭 暂无文章批次</p>
+            <p>点击"抓取新文章"开始获取内容</p>
+        </div>
+    </main>
+
+    <script>
+        const API_BASE = 'http://localhost:8765';
+
+        // 页面加载时获取批次列表
+        window.onload = function() {
+            loadBatches();
+        };
+
+        // 加载批次列表
+        async function loadBatches() {
+            const container = document.getElementById('batchesContainer');
+            const loading = document.getElementById('loading');
+            const emptyState = document.getElementById('emptyState');
+
+            loading.style.display = 'block';
+            container.innerHTML = '';
+            emptyState.style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/batches`);
+                const batches = await response.json();
+
+                loading.style.display = 'none';
+
+                if (batches.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                }
+
+                batches.forEach((batch, index) => {
+                    const card = createBatchCard(batch, index);
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                loading.style.display = 'none';
+                container.innerHTML = `<div class="error">❌ 加载失败: ${error.message}</div>`;
+            }
+        }
+
+        // 创建批次卡片
+        function createBatchCard(batch, index) {
+            const card = document.createElement('div');
+            card.className = 'batch-card';
+            card.onclick = () => viewBatch(batch.batch_date);
+
+            const batchNumber = index + 1;
+            const date = new Date(batch.batch_date);
+            const dateStr = date.toLocaleDateString('zh-CN', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+
+            card.innerHTML = `
+                <div class="batch-header">
+                    <h2>精选文章 第${batchNumber}期</h2>
+                    <span class="batch-badge">${batch.article_count}篇</span>
+                </div>
+                <div class="batch-info">
+                    <p class="batch-date">📅 ${dateStr}</p>
+                    <p class="batch-subtitle">第${batchNumber}次拉取</p>
+                </div>
+                <div class="batch-footer">
+                    <span class="view-link">查看文章 →</span>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // 查看批次详情
+        function viewBatch(batchDate) {
+            window.location.href = `batch.html?date=${batchDate}`;
+        }
+
+        // 触发抓取
+        async function triggerFetch() {
+            const btn = document.getElementById('fetchBtn');
+            btn.disabled = true;
+            btn.textContent = '⏳ 抓取中...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/rss/fetch`, {
+                    method: 'POST'
+                });
+                const result = await response.json();
+
+                alert('✅ 抓取已开始！请等待几分钟后刷新页面查看新文章。');
+
+                // 5秒后自动刷新
+                setTimeout(() => {
+                    loadBatches();
+                    btn.disabled = false;
+                    btn.textContent = '📥 抓取新文章';
+                }, 5000);
+
+            } catch (error) {
+                alert('❌ 抓取失败: ' + error.message);
+                btn.disabled = false;
+                btn.textContent = '📥 抓取新文章';
+            }
+        }
+    </script>
+</body>
+</html>

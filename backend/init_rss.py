@@ -15,9 +15,11 @@ print("🔧 检查并创建数据库表...")
 Base.metadata.create_all(bind=engine)
 print("✅ 数据库表已就绪\n")
 
-# OPML 文件路径（ArticleAggregator_RSS_Articles.opml）
+# OPML 文件路径（config/opml/ArticleAggregator_RSS_Articles.opml）
 OPML_FILE = os.path.join(
     os.path.dirname(os.path.dirname(__file__)),
+    "config",
+    "opml",
     "ArticleAggregator_RSS_Articles.opml"
 )
 
@@ -86,10 +88,7 @@ def init_rss_sources():
 
         print(f"\n" + "=" * 60)
         print("🎉 初始化完成！")
-        print(f"\n后续抓取将自动进行:")
-        print(f"   - RSS 抓取: 每 6 小时")
-        print(f"   - 全文提取: 每 30 分钟")
-        print(f"\n你也可以通过 API 手动触发:")
+        print(f"\n可以通过 API 手动触发抓取:")
         print(f"   POST http://localhost:8765/api/rss/fetch")
         print(f"   POST http://localhost:8765/api/rss/extract-content")
         print("=" * 60)

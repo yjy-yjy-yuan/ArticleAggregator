@@ -10,7 +10,7 @@ ENV/
 .venv
 
 # Database
-*.db
+backend/data/articles.db
 *.sqlite3
 data/
 

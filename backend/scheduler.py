@@ -29,16 +29,7 @@ class ArticleScheduler:
         Args:
             interval_hours: 抓取间隔（小时）
         """
-        self.scheduler.add_job(
-            func=self._fetch_rss_job,
-            trigger=IntervalTrigger(hours=interval_hours),
-            id='fetch_rss',
-            name='Fetch RSS feeds',
-            replace_existing=True
-        )
-        logger.info(f"✅ RSS fetching scheduled: every {interval_hours} hours")
-
-        # 立即执行一次
+        logger.info("✅ RSS fetching will run once on startup")
         self._fetch_rss_job()
 
     def start_content_extraction(self, interval_minutes: int = 30):
@@ -63,7 +54,7 @@ class ArticleScheduler:
         db = SessionLocal()
         try:
             fetcher = RSSFetcher(db)
-            stats = fetcher.fetch_all_sources(max_articles_per_source=20)
+            stats = fetcher.fetch_all_sources(max_articles_per_source=5)
             logger.info(f"✅ RSS fetch completed: {stats}")
         except Exception as e:
             logger.error(f"❌ RSS fetch error: {str(e)}")
