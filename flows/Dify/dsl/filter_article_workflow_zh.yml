@@ -5,7 +5,7 @@ app:
   icon: helicopter
   icon_background: '#FFEAD5'
   mode: workflow
-  name: "BestBlogs \u6587\u7AE0\u521D\u8BC4\u6D41\u7A0B"
+  name: "ArticleAggregator \u6587\u7AE0\u521D\u8BC4\u6D41\u7A0B"
 workflow:
   features:
     file_upload:
@@ -115,7 +115,7 @@ workflow:
         title: "\u5F00\u59CB"
         type: start
         variables:
-        - label: "BestBlogs \u6587\u7AE0 Id"
+        - label: "ArticleAggregator \u6587\u7AE0 Id"
           max_length: 20
           options: []
           required: true

@@ -3,7 +3,7 @@ app:
   icon: sparkle
   icon_background: '#D3F8DF'
   mode: workflow
-  name: BestBlogs 文章分析流程-V2
+  name: ArticleAggregator 文章分析流程-V2
   use_icon_as_answer_icon: false
 kind: app
 version: 0.1.5
@@ -134,7 +134,7 @@ workflow:
         title: 开始
         type: start
         variables:
-        - label: BestBlogs 文章 Id
+        - label: ArticleAggregator 文章 Id
           max_length: 20
           options: []
           required: true

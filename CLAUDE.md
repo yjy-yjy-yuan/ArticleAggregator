@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-BestBlogs.dev is a content aggregation platform that curates high-quality articles from the fields of software development, artificial intelligence, product management, design, business technology, and personal growth. The platform uses AI-powered analysis to evaluate, summarize, and enhance content from 380+ RSS sources.
+ArticleAggregator.dev is a content aggregation platform that curates high-quality articles from the fields of software development, artificial intelligence, product management, design, business technology, and personal growth. The platform uses AI-powered analysis to evaluate, summarize, and enhance content from 380+ RSS sources.
 
 ### Core Features
 - Intelligent article analysis and scoring using large language models
@@ -15,16 +15,16 @@ BestBlogs.dev is a content aggregation platform that curates high-quality articl
 
 ## Repository Structure
 
-This repository contains documentation and configuration files for the BestBlogs.dev platform:
+This repository contains documentation and configuration files for the ArticleAggregator.dev platform:
 
 - **Documentation**: Main README.md provides comprehensive project overview
 - **RSS Sources**: OPML files containing subscription source lists
-  - `BestBlogs_RSS_ALL.opml` - All 380 RSS sources
-  - `BestBlogs_RSS_Articles.opml` - Article sources (200)
-  - `BestBlogs_RSS_Podcasts.opml` - Podcast sources (30)
-  - `BestBlogs_RSS_Twitters.opml` - Twitter sources (150)
-- **API Documentation**: `BestBlogs_OpenAPI_Doc.md` - Complete OpenAPI specification
-- **RSS Guide**: `BestBlogs_RSS_Doc.md` - RSS subscription parameters and usage
+  - `ArticleAggregator_RSS_ALL.opml` - All 380 RSS sources
+  - `ArticleAggregator_RSS_Articles.opml` - Article sources (200)
+  - `ArticleAggregator_RSS_Podcasts.opml` - Podcast sources (30)
+  - `ArticleAggregator_RSS_Twitters.opml` - Twitter sources (150)
+- **API Documentation**: `ArticleAggregator_OpenAPI_Doc.md` - Complete OpenAPI specification
+- **RSS Guide**: `ArticleAggregator_RSS_Doc.md` - RSS subscription parameters and usage
 - **Implementation Details**: `/flows/Dify/` - Detailed analysis workflows and DSL files
 - **Process Documentation**: `/docs/` - Technical implementation explanations
 

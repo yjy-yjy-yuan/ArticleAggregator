@@ -1,4 +1,4 @@
-# BestBlogs 文章初评流程
+# ArticleAggregator 文章初评流程
 
 ## 整体流程图
 
