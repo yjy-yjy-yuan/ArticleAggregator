@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<opml version="2.0">
+	<head>
+		<title>AI Students RSS Subscriptions - 面向AI学生的RSS订阅源</title>
+		<dateCreated>2025-01-15</dateCreated>
+		<docs>https://github.com/ArticleAggregator</docs>
+	</head>
+	<body>
+		<!-- 教学与可视化 - Teaching & Visualization -->
+		<outline text="Jay Alammar" title="Jay Alammar" type="rss" xmlUrl="https://jalammar.github.io/feed.xml"/>
+		<outline text="Lilian Weng" title="Lilian Weng" type="rss" xmlUrl="https://lilianweng.github.io/lil-log/feed.xml"/>
+		<outline text="Distill" title="Distill" type="rss" xmlUrl="http://distill.pub/rss.xml"/>
+		<outline text="The Gradient" title="The Gradient" type="rss" xmlUrl="https://thegradient.pub/rss/"/>
+		<outline text="Sebastian Ruder" title="Sebastian Ruder" type="rss" xmlUrl="http://ruder.io/rss/index.rss"/>
+
+		<!-- 顶级实验室 - Top Labs -->
+		<outline text="OpenAI Blog" title="OpenAI Blog" type="rss" xmlUrl="https://blog.openai.com/rss/"/>
+		<outline text="Hugging Face Blog" title="Hugging Face Blog" type="rss" xmlUrl="https://huggingface.co/blog/feed.xml"/>
+		<outline text="DeepMind Blog" title="DeepMind Blog" type="rss" xmlUrl="https://deepmind.com/blog/feed/basic/"/>
+		<outline text="Google AI Blog" title="Google AI Blog" type="rss" xmlUrl="http://googleresearch.blogspot.com/atom.xml"/>
+		<outline text="Meta AI" title="Meta AI" type="rss" xmlUrl="https://ai.meta.com/blog/rss/"/>
+		<outline text="Berkeley AI Research (BAIR)" title="Berkeley AI Research (BAIR)" type="rss" xmlUrl="http://bair.berkeley.edu/blog/feed.xml"/>
+		<outline text="ML@CMU" title="ML@CMU" type="rss" xmlUrl="https://blog.ml.cmu.edu/feed/"/>
+		<outline text="MIT News - AI" title="MIT News - AI" type="rss" xmlUrl="http://news.mit.edu/rss/topic/artificial-intelligence2"/>
+		<outline text="Amazon Science" title="Amazon Science" type="rss" xmlUrl="https://www.amazon.science/index.rss"/>
+
+		<!-- 实践应用 - Practical Applications -->
+		<outline text="PyTorch Blog" title="PyTorch Blog" type="rss" xmlUrl="https://pytorch.org/blog/feed.xml"/>
+		<outline text="TensorFlow Blog" title="TensorFlow Blog" type="rss" xmlUrl="https://blog.tensorflow.org/feeds/posts/default"/>
+		<outline text="Towards Data Science" title="Towards Data Science" type="rss" xmlUrl="https://towardsdatascience.com/feed"/>
+
+		<!-- 论文追踪 - Paper Tracking -->
+		<outline text="Papers with Code" title="Papers with Code" type="rss" xmlUrl="https://paperswithcode.com/latest"/>
+		<outline text="arXiv cs.AI (Artificial Intelligence)" title="arXiv cs.AI (Artificial Intelligence)" type="rss" xmlUrl="http://export.arxiv.org/rss/cs.AI"/>
+		<outline text="arXiv cs.LG (Machine Learning)" title="arXiv cs.LG (Machine Learning)" type="rss" xmlUrl="http://export.arxiv.org/rss/cs.LG"/>
+		<outline text="arXiv cs.CV (Computer Vision)" title="arXiv cs.CV (Computer Vision)" type="rss" xmlUrl="http://export.arxiv.org/rss/cs.CV"/>
+		<outline text="arXiv cs.CL (Computation and Language)" title="arXiv cs.CL (Computation and Language)" type="rss" xmlUrl="http://export.arxiv.org/rss/cs.CL"/>
+
+		<!-- 视频教程 - Video Tutorials -->
+		<outline text="Yannic Kilcher (YouTube)" title="Yannic Kilcher (YouTube)" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCZHmQk67mSJgfCCTn7xBfew"/>
+		<outline text="Two Minute Papers (YouTube)" title="Two Minute Papers (YouTube)" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCbfYPyITQ-7l4upoX8nvctg"/>
+		<outline text="DeepLearningAI (YouTube)" title="DeepLearningAI (YouTube)" type="rss" xmlUrl="https://www.youtube.com/feeds/videos.xml?channel_id=UCcIXc5mJsHVYTZR1maL5l9w"/>
+	</body>
+</opml>

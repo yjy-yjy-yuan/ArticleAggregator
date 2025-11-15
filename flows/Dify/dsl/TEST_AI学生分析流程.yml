@@ -1,0 +1,253 @@
+app:
+  description: AI学生文章深度分析流程 - 测试版（简化版本，适合快速测试）
+  icon: 🔬
+  icon_background: '#FFF3E0'
+  mode: workflow
+  name: TEST_AI学生分析流程
+  use_icon_as_answer_icon: false
+
+kind: app
+version: 0.5.0
+
+workflow:
+  conversation_variables: []
+  environment_variables: []
+
+  features:
+    file_upload:
+      enabled: false
+    opening_statement: ''
+    retriever_resource:
+      enabled: false
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    text_to_speech:
+      enabled: false
+
+  graph:
+    edges:
+    # 开始 → 全文分析
+    - data:
+        isInIteration: false
+        sourceType: start
+        targetType: llm
+      id: start-to-analysis
+      source: start-node
+      sourceHandle: source
+      target: llm-analysis
+      targetHandle: target
+      type: custom
+
+    # 全文分析 → 结束
+    - data:
+        isInIteration: false
+        sourceType: llm
+        targetType: end
+      id: analysis-to-end
+      source: llm-analysis
+      sourceHandle: source
+      target: end-node
+      targetHandle: target
+      type: custom
+
+    nodes:
+    # ========== 开始节点 ==========
+    - data:
+        desc: 输入文章进行深度分析
+        title: 开始
+        type: start
+        variables:
+        - label: 文章标题
+          max_length: 500
+          required: true
+          type: text-input
+          variable: article_title
+        - label: 文章URL
+          max_length: 500
+          required: false
+          type: text-input
+          variable: article_url
+        - label: 文章完整内容
+          max_length: 50000
+          required: true
+          type: paragraph
+          variable: article_content
+        - label: 来源名称
+          max_length: 100
+          required: false
+          type: text-input
+          variable: source_name
+        - label: 来源难度
+          max_length: 50
+          required: false
+          type: text-input
+          variable: source_difficulty
+      id: start-node
+      position:
+        x: 50
+        y: 300
+      positionAbsolute:
+        x: 50
+        y: 300
+      type: start
+
+    # ========== LLM 全文分析节点 ==========
+    - data:
+        context:
+          enabled: false
+        desc: 深度分析文章内容
+        model:
+          completion_params:
+            temperature: 0.5
+            top_p: 0.9
+          mode: chat
+          name: gemini-2.0-flash-exp
+          provider: google
+        prompt_template:
+        - id: system
+          role: system
+          text: |
+            你是专为AI/ML学生设计的技术文章分析专家。
+
+            ## 任务目标
+            对文章进行全面深度分析，生成结构化摘要，帮助学生快速理解核心内容。
+
+            ## 分析维度
+
+            ### 1. 一句话总结（oneSentenceSummary）
+            - 20-30字
+            - 概括文章最核心的观点或技术
+            - 例如："介绍Transformer注意力机制的可视化理解方法"
+
+            ### 2. 详细摘要（summary）
+            - 200-400字
+            - 包含：背景、核心技术、主要发现、应用价值
+            - 用学生能理解的语言
+
+            ### 3. 领域分类（domain）
+            从以下选项中选择最匹配的：
+            - "机器学习基础"
+            - "深度学习"
+            - "自然语言处理"
+            - "计算机视觉"
+            - "强化学习"
+            - "AI工具与框架"
+
+            ### 4. 标签列表（tags）
+            - 5-8个标签
+            - 包括：技术主题、算法名称、工具框架、应用场景
+            - 例如：["Transformer", "注意力机制", "PyTorch", "NLP", "教程"]
+
+            ### 5. 核心要点（mainPoints）
+            - 3-5个关键点
+            - 每个要点包含：
+              - point: 简短标题（10-15字）
+              - explanation: 详细说明（30-50字）
+
+            ### 6. 文章金句（keyQuotes）
+            - 2-3条精华语句
+            - 选择有启发性、可引用的句子
+
+            ### 7. 质量评分（score）
+            基础分：90分
+
+            **评分维度**：
+            - 学术深度（35%）：理论严谨性、技术专业度
+            - 相关性（30%）：是否符合AI学生需求
+            - 实践价值（20%）：代码、实验、可操作性
+            - 创新性（15%）：观点新颖度、启发性
+
+            **调整范围**：-10 ~ +5分
+
+            **加分项**：
+            - 有详细代码示例（+2分）
+            - 来自顶级实验室/研究员（+2分）
+            - 深入浅出的教学风格（+1分）
+
+            **减分项**：
+            - 纯理论无实践（-3分）
+            - 内容过时（-2分）
+            - 缺乏技术深度（-3分）
+
+            ## 输出格式（严格JSON）
+
+            ```json
+            {
+              "oneSentenceSummary": "这里填写一句话总结",
+              "summary": "这里填写详细摘要",
+              "domain": "深度学习",
+              "tags": ["标签1", "标签2", "标签3", "标签4", "标签5"],
+              "mainPoints": [
+                {
+                  "point": "核心要点1",
+                  "explanation": "详细解释"
+                },
+                {
+                  "point": "核心要点2",
+                  "explanation": "详细解释"
+                }
+              ],
+              "keyQuotes": [
+                "精华语句1",
+                "精华语句2"
+              ],
+              "score": 88
+            }
+            ```
+
+            **重要**：
+            1. 必须输出合法的JSON格式
+            2. score 必须是整数，范围 50-95
+            3. 所有字段都必须填写
+            4. 中文输出
+
+        - id: user
+          role: user
+          text: |
+            请分析以下文章：
+
+            **标题**：{{#start-node.article_title#}}
+
+            **来源**：{{#start-node.source_name#}}（难度：{{#start-node.source_difficulty#}}）
+
+            **URL**：{{#start-node.article_url#}}
+
+            **完整内容**：
+            {{#start-node.article_content#}}
+
+        selected: false
+        title: 全文深度分析
+        type: llm
+        variables: []
+        vision:
+          enabled: false
+      id: llm-analysis
+      position:
+        x: 450
+        y: 300
+      positionAbsolute:
+        x: 450
+        y: 300
+      type: llm
+
+    # ========== 结束节点 ==========
+    - data:
+        desc: 输出分析结果
+        outputs:
+        - value_selector:
+          - llm-analysis
+          - text
+          variable: analysis_result
+        selected: false
+        title: 分析完成
+        type: end
+      id: end-node
+      position:
+        x: 850
+        y: 300
+      positionAbsolute:
+        x: 850
+        y: 300
+      type: end
